@@ -1,0 +1,72 @@
+import config from "./config";
+import Api from "./controllers/api";
+import logger from "./logger";
+// @ts-ignore
+import listEndpoints from "express-list-endpoints";
+import * as http from "http";
+import { AddressInfo } from "net";
+
+// ErrnoError interface for use in onError
+declare interface ErrnoError extends Error {
+  errno?: number;
+  code?: string;
+  path?: string;
+  syscall?: string;
+}
+
+const app: Api = new Api();
+const DEFAULT_PORT: number = 3000;
+const port: string | number = normalizePort(process.env.PORT);
+const server = http.createServer(app.express);
+
+server.listen(port);
+server.on("error", onError);
+server.on("listening", onListening);
+
+function normalizePort(val: any): number | string {
+  const _port: number = typeof val === "string" ? parseInt(val, 10) : val;
+
+  if (_port && isNaN(_port)) {
+    return _port;
+  } else if (_port >= 0) {
+    return _port;
+  } else {
+    return DEFAULT_PORT;
+  }
+}
+
+function onError(error: ErrnoError): void {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+
+  const bind: string =
+    typeof port === "string" ? `Pipe ${port}` : `Port ${port.toString()}`;
+
+  switch (error.code) {
+    case "EACCES":
+      throw new Error(`${bind} requires elevated privileges`);
+    case "EADDRINUSE":
+      throw new Error(`${bind} is already in use`);
+    default:
+      throw error;
+  }
+}
+
+function onListening(): void {
+  const addr: AddressInfo | string | null = server.address();
+
+  if (addr) {
+    const bind: string =
+      typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
+
+    logger.debug(
+      `Routes: ${JSON.stringify(listEndpoints(app.express))
+        .replace(/},{/g, "},\r\n  {")
+        .replace(/\[{/, "[\r\n{")
+        .replace(/}]/, "}\r\n]")}`
+    );
+    logger.info(`Configurations:\n${JSON.stringify(config, null, 3)}`);
+    logger.info(`Listening on ${bind}...`);
+  }
+}
