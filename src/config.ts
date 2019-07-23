@@ -1,7 +1,7 @@
 import { mergeDeepRight, pick } from "ramda";
 import dotenv from "dotenv";
 
-function url({ host, port }: { host: any, port: any }) {
+function url({ host, port }: { host: any; port: any }) {
   const envPort = process.env[port] || "";
   const envHost = process.env[host] || "";
   return `${envHost}:${envPort}`;
@@ -17,8 +17,8 @@ const localConfigs = dotenv.config({ path: configFile }).parsed;
 const serviceEndpoints = {
   svcReferenceEndpoint: url({
     host: "REFERENCE_SERVICE_URL",
-    port: "REFERENCE_SERVICE_PORT",
-  }),
+    port: "REFERENCE_SERVICE_PORT"
+  })
 };
 
 //@ts-ignore

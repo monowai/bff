@@ -22,5 +22,6 @@ WORKDIR /project/build
 
 ENV NODE_ENV=production
 
-# Add dumb-init to make stopping of container fast. Reference at https://engineeringblog.yelp.com/2016/01/dumb-init-an-init-for-docker.html, http://jkamenik.github.io/blog/2017/10/21/docker-details---dumb-init/
+# Add dumb-init to make stopping of container fast.
+# Reference at https://engineeringblog.yelp.com/2016/01/dumb-init-an-init-for-docker.html, http://jkamenik.github.io/blog/2017/10/21/docker-details---dumb-init/
 CMD ["dumb-init", "node", "index.js"]
