@@ -9,8 +9,9 @@
   },
   "scripts": {
     "clean": "rm -rf jest.json build coverage",
+    "build": "parcel build src/index.ts",
     "start": "export APP_MODE=dev && nodemon --exec \"babel-node src/index.ts\" --extensions \".ts,.tsx\" --watch",
-    "build": "./node_modules/.bin/babel src --out-dir build --extensions \".ts,.tsx\" --source-maps inline --copy-files",
+    "start:prod": "NODE_ENV=production node dist/index.js",
     "lint": "prettier --write 'src/**/*.ts*' && yarn style ",
     "style": "tslint 'src/**/*.ts*' && yarn lint-md",
     "type-check": "tsc --noEmit",
@@ -51,6 +52,8 @@
     "@types/node": "^12.0.12",
     "@types/ramda": "^0.26.15",
     "@types/winston": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.0.0",
     "eslint": "^6.0.1",
@@ -72,6 +75,7 @@
     "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
+    "parcel-bundler": "^1.12.3",
     "typescript": "^3.5.3"
   },
   "jest": {

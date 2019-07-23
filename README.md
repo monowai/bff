@@ -25,6 +25,9 @@ nodemon --exec \"node_modules/@babel/node/bin/babel-node.js\" --extensions \".ts
 ```
 
 ## Configuration
-Using DotEnv, config props are initialised by analyzing the APP_MODE var.  
+Using DotEnv, config props are initialised by analyzing the APP_MODE var.
+
+## Build
+Haven't sorted this out yet :-\  
 
 

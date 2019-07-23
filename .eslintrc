@@ -1,5 +1,5 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
   "rules": {
     "strict": "error",
     "complexity": ["error", 5],
@@ -36,13 +36,12 @@
       "error",
       "never",
       {
-        ".json": "always",
+        ".json": "always"
       }
     ],
     "jest/no-disabled-tests": "error",
     "prettier/prettier": ["error", {
       "trailingComma": "es5",
-      "parser": "flow",
       "printWidth": 80
     }]
   },
@@ -51,15 +50,12 @@
     "jest": true,
     "node": true
   },
-  "plugins": ["flowtype", "jest", "prettier"],
+  "plugins": ["prettier/@typescript-eslint", "jest", "prettier"],
   "extends": [
-    "plugin:flowtype/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
     "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
     "plugin:jest/recommended",
-    "prettier",
-    "prettier/flowtype",
-    "prettier/react"
+    "prettier"
   ]
 }
