@@ -1,8 +1,8 @@
 import config from "./config";
 import Api from "./controllers/api";
 import logger from "./logger";
-// @ts-ignore
-import listEndpoints from "express-list-endpoints";
+//@ts-ignore
+import getEndpoints from "express-list-endpoints";
 import * as http from "http";
 import { AddressInfo } from "net";
 
@@ -17,17 +17,17 @@ declare interface ErrnoError extends Error {
 const app: Api = new Api();
 const DEFAULT_PORT = 3000;
 
-function normalizePort(val: any): number | string {
+function normalizePort(val: number | string): string {
   const _port: number = typeof val === "string" ? parseInt(val, 10) : val;
   if (_port && isNaN(_port)) {
-    return _port;
+    return DEFAULT_PORT.toString();
   } else if (_port >= 0) {
-    return _port;
+    return _port.toString();
   }
-  return DEFAULT_PORT;
+  return DEFAULT_PORT.toString();
 }
 
-const port: string | number = normalizePort(process.env.PORT);
+const port: string = normalizePort(process.env.PORT);
 const server = http.createServer(app.express);
 
 function onError(error: ErrnoError): void {
@@ -35,14 +35,11 @@ function onError(error: ErrnoError): void {
     throw error;
   }
 
-  const bind: string =
-    typeof port === "string" ? `Pipe ${port}` : `Port ${port.toString()}`;
-
   switch (error.code) {
     case "EACCES":
-      throw new Error(`${bind} requires elevated privileges`);
+      throw new Error(`${port} requires elevated privileges`);
     case "EADDRINUSE":
-      throw new Error(`${bind} is already in use`);
+      throw new Error(`${port} is already in use`);
     default:
       throw error;
   }
@@ -56,7 +53,7 @@ function onListening(): void {
       typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
 
     logger.debug(
-      `Routes: ${JSON.stringify(listEndpoints(app.express))
+      `Routes: ${JSON.stringify(getEndpoints(app.express))
         .replace(/},{/g, "},\r\n  {")
         .replace(/\[{/, "[\r\n{")
         .replace(/}]/, "}\r\n]")}`

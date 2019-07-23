@@ -1,7 +1,7 @@
 import { mergeDeepRight, pick } from "ramda";
 import dotenv from "dotenv";
 
-function url({ host, port }: { host: any; port: any }): string {
+function url({ host, port }: { host: string; port: string }): string {
   const envPort = process.env[port] || "";
   const envHost = process.env[host] || "";
   return `${envHost}:${envPort}`;
