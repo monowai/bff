@@ -21,13 +21,13 @@ import { toColoredStatusCode } from "../helpers/httpUtils";
 // };
 
 export default class Api {
-  public express: express.Application;
+  express: express.Application;
 
   private static morgan(): express.RequestHandler {
     //@ts-ignore
     morgan.token("coloredStatus", toColoredStatusCode);
 
-    const options: morgan.Options =  {
+    const options: morgan.Options = {
       skip: req => /\/health\/?$/.test(req.url.trim())
     };
     return morgan(
@@ -38,7 +38,7 @@ export default class Api {
   }
 
   // create the express instance, attach app-level middleware, attach routers
-  public constructor() {
+  constructor() {
     this.express = express();
     this.middleware();
     this.routes();
