@@ -25,6 +25,8 @@
 build/
 out/
 bin/
+dist/
+.cache/
 
 # JetBrains
 .idea/
