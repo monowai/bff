@@ -4,7 +4,8 @@ RUN echo "deb http://ftp.sg.debian.org/debian sid main " > /etc/apt/sources.list
   apt-get update && \
   apt-get install -y --no-install-recommends dumb-init=1.2.2-1.1 && \
   rm /etc/apt/sources.list && \
-  apt-get clean
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
 
 COPY '.' '/project'
 WORKDIR /project
