@@ -21,9 +21,9 @@ import { toColoredStatusCode } from "../helpers/httpUtils";
 // };
 
 export default class Api {
-  express: express.Application;
+  private express: express.Application;
 
-  static morgan() {
+  private static morgan() {
     //@ts-ignore
     morgan.token("coloredStatus", toColoredStatusCode);
 
@@ -38,14 +38,14 @@ export default class Api {
   }
 
   // create the express instance, attach app-level middleware, attach routers
-  constructor() {
+  private constructor() {
     this.express = express();
     this.middleware();
     this.routes();
   }
 
   // register middleware
-  middleware(): void {
+  private middleware(): void {
     this.express.use(helmet());
     this.express.use(helmet.noCache());
     this.express.use(Api.morgan());
@@ -61,7 +61,7 @@ export default class Api {
   }
 
   // connect resource routers
-  routes(): void {
+  private routes(): void {
     this.express.use("/api", health);
   }
 }

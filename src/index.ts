@@ -15,25 +15,20 @@ declare interface ErrnoError extends Error {
 }
 
 const app: Api = new Api();
-const DEFAULT_PORT: number = 3000;
-const port: string | number = normalizePort(process.env.PORT);
-const server = http.createServer(app.express);
-
-server.listen(port);
-server.on("error", onError);
-server.on("listening", onListening);
+const DEFAULT_PORT = 3000;
 
 function normalizePort(val: any): number | string {
   const _port: number = typeof val === "string" ? parseInt(val, 10) : val;
-
   if (_port && isNaN(_port)) {
     return _port;
   } else if (_port >= 0) {
     return _port;
-  } else {
-    return DEFAULT_PORT;
   }
+  return DEFAULT_PORT;
 }
+
+const port: string | number = normalizePort(process.env.PORT);
+const server = http.createServer(app.express);
 
 function onError(error: ErrnoError): void {
   if (error.syscall !== "listen") {
@@ -70,3 +65,7 @@ function onListening(): void {
     logger.info(`Listening on ${bind}...`);
   }
 }
+
+server.listen(port);
+server.on("error", onError);
+server.on("listening", onListening);

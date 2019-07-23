@@ -1,5 +1,15 @@
-{
-  "parser": "@typescript-eslint/parser",
+module.exports = {
+  parser: "@typescript-eslint/parser",  // Specifies the ESLint parser
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
+  ],
+  parserOptions: {
+    ecmaVersion: 2018,  // Allows for the parsing of modern ECMAScript features
+    sourceType: "module"  // Allows for the use of imports
+  },
   "rules": {
     "strict": "error",
     "complexity": ["error", 5],
@@ -30,32 +40,11 @@
     "no-useless-return": "error",
     "no-else-return": "error",
     "no-return-await": "error",
-    "no-var": "error",
-    "import/no-duplicates": "error",
-    "import/extensions": [
-      "error",
-      "never",
-      {
-        ".json": "always"
-      }
-    ],
-    "jest/no-disabled-tests": "error",
-    "prettier/prettier": ["error", {
-      "trailingComma": "es5",
-      "printWidth": 80
-    }]
+    "no-var": "error"
   },
   "env": {
     "es6": true,
     "jest": true,
     "node": true
-  },
-  "plugins": ["prettier/@typescript-eslint", "jest", "prettier"],
-  "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
-    "eslint:recommended",
-    "plugin:jest/recommended",
-    "prettier"
-  ]
-}
+  }
+};
