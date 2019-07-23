@@ -12,7 +12,7 @@
     "start": "export APP_MODE=dev && nodemon --exec \"babel-node src/index.ts\" --extensions \".ts,.tsx\" --watch",
     "build": "./node_modules/.bin/babel src --out-dir build --extensions \".ts,.tsx\" --source-maps inline --copy-files",
     "lint": "prettier --write 'src/**/*.ts*' && yarn style ",
-    "style": "tslint 'src/**/*.ts*'",
+    "style": "tslint 'src/**/*.ts*' && yarn lint-md",
     "type-check": "tsc --noEmit",
     "lint-md": "remark ."
   },
@@ -59,9 +59,11 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.8.0",
+    "lodash": "^4.17.15",
     "nodemon": "^1.19.1",
     "prettier": "^1.18.2",
     "remark-cli": "^7.0.0",
+    "remark-lint": "^6.0.5",
     "remark-preset-lint-recommended": "^3.0.3",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
@@ -93,10 +95,5 @@
       "src/*"
     ],
     "delay": "1000"
-  },
-  "remarkConfig": {
-    "plugins": [
-      "remark-preset-lint-recommended"
-    ]
   }
 }

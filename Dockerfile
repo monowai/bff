@@ -1,24 +1,20 @@
-FROM node:10-slim
+FROM node:12-slim
 
 RUN echo "deb http://ftp.sg.debian.org/debian sid main " > /etc/apt/sources.list && \
   apt-get update && \
-  apt-get install dumb-init && \
+  apt-get install -y dumb-init=1.2.2-1.1 && \
   rm /etc/apt/sources.list && \
   apt-get clean
 
 COPY '.' '/project'
-
-RUN cd /project && \
-    yarn clean && \
-    yarn docker:set-proxy && \
+WORKDIR project
+RUN yarn clean && \
     yarn install --frozen-lockfile && \
     yarn build && \
-    yarn cache clean && \
-    yarn docker:unset-proxy
+    yarn cache clean
 
 RUN rm -rf ../__tests__  && \
     rm -rf ../src  && \
-    rm -rf ../flow_typed && \
     rm -rf ../scripts
 
 WORKDIR /project/build

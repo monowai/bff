@@ -12,7 +12,7 @@ Configured with
 *   Morgan
 *   DotEnv
 
- Contains a single endpoint to return a status indicator
+Contains a single endpoint to return a status indicator
 
 ```bash
 yarn start
