@@ -21,7 +21,7 @@ import { toColoredStatusCode } from "../helpers/httpUtils";
 // };
 
 export default class Api {
-  express: express.Application;
+  public express: express.Application;
 
   private static morgan(): express.RequestHandler {
     //@ts-ignore
@@ -38,7 +38,7 @@ export default class Api {
   }
 
   // create the express instance, attach app-level middleware, attach routers
-  constructor() {
+  public constructor() {
     this.express = express();
     this.middleware();
     this.routes();

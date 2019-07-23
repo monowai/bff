@@ -35,7 +35,7 @@
       120
     ],
     "ordered-imports": false,
-    "member-access": [true, "no-public"],
+    "member-access": [true],
     "member-ordering": [
       true,
       "private-before-public",
